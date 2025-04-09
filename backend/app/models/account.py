@@ -6,7 +6,6 @@ from sqlalchemy import Column, Numeric
 from sqlmodel import SQLModel, Field, Relationship
 
 from backend.app.models.payment import PaymentRead
-from backend.app.models.user import UserRead
 
 
 class Account(SQLModel, table=True):
@@ -35,16 +34,15 @@ class AccountCreate(BaseModel):
 class AccountUpdate(BaseModel):
     pass
 
+
 class AccountRead(BaseModel):
     id: int
     account_number: str
     balance: float
 
 
+
+
+
 class AccountReadWithPayments(AccountRead):
     payments: List[PaymentRead]
-
-
-class UserAccountRead(UserRead):
-    accounts: List[AccountRead]
-

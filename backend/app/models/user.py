@@ -2,6 +2,8 @@ from pydantic import BaseModel, computed_field
 from sqlmodel import SQLModel, Field, Relationship
 from typing import Optional, List
 
+from backend.app.models.account import AccountRead
+
 
 class UserBase(SQLModel):
     email: str = Field(unique=True, index=True, max_length=255)
@@ -41,3 +43,7 @@ class UserRead(UserBase):
     @property
     def full_name(self) -> str:
         return f"{self.first_name or ''} {self.last_name or ''}".strip()
+
+
+class UserAccountRead(UserRead):
+    accounts: List[AccountRead]

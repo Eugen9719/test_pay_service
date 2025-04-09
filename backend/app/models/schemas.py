@@ -1,6 +1,5 @@
 from pydantic import BaseModel
 
-
 class Token(BaseModel):
     access_token: str
     token_type: str = "bearer"
@@ -20,6 +19,11 @@ class WebhookRequest(BaseModel):
     user_id: int
     amount: int
     signature: str
+
+
+
+
+
 
 
 
