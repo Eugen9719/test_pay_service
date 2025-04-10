@@ -10,8 +10,20 @@ from backend.app.repositories.base_repositories import AsyncBaseRepository, Quer
 
 
 class UserRepository(AsyncBaseRepository[User, UserCreate, UserUpdate], QueryMixin):
+    """
+    Репозиторий для работы с сущностью User в асинхронной базе данных.
+
+    Наследует методы базового репозитория для операций с сущностью User и реализует интерфейс QueryMixin
+    для выполнения дополнительных запросов.
+    """
+
     def __init__(self):
+        """
+        Инициализирует репозиторий для работы с моделью User.
+        Вызывает конструктор базового класса для настройки сессий работы с данными.
+        """
         super().__init__(User)
+
 
     async def create_user(self, db: AsyncSession, schema: UserCreate, hashed_password) -> User:
         """Создание нового пользователя"""
