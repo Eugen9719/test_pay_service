@@ -53,23 +53,21 @@ def upgrade() -> None:
                     )
     op.create_index(op.f('ix_payment_id'), 'payment', ['id'], unique=False)
     # Вставка тестовых данных
-    # Хеширование паролей перед вставкой
     hashed_password_test_user = pwd_context.hash('test')
     hashed_password_admin_user = pwd_context.hash('admin')
 
-    # Вставка тестовых данных с хешированными паролями
     op.execute(f"""
-               INSERT INTO "user" (id, email, first_name, last_name, is_superuser, hashed_password) 
-               VALUES 
-               (1, 'testuser@example.com', 'Test', 'User', FALSE, '{hashed_password_test_user}'),
-               (2, 'admin@example.com', 'Admin', 'User', TRUE, '{hashed_password_admin_user}');
-           """)
+            INSERT INTO "user" (email, first_name, last_name, is_superuser, hashed_password) 
+            VALUES 
+            ('testuser@example.com', 'Test', 'User', FALSE, '{hashed_password_test_user}'),
+            ('admin@example.com', 'Admin', 'User', TRUE, '{hashed_password_admin_user}');
+        """)
 
     op.execute("""
-           INSERT INTO account (id, account_number, user_id, balance) 
-           VALUES 
-           (1, 'ACC-111B6FBF', 1, 0);
-       """)
+            INSERT INTO account (account_number, user_id, balance) 
+            VALUES 
+            ('ACC-111B6FBF', 1, 0);
+        """)
     # ### end Alembic commands ###
 
 
